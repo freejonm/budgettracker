@@ -21,6 +21,16 @@ router.post("/api/transaction/bulk", ({body}, res) => {
     });
 });
 
+router.post("/api/transaction/all", ({body}, res) => {
+  Transaction.deleteMany({})
+    .then(dbTransaction => {
+      res.json(dbTransaction);
+    })
+    .catch(err => {
+      res.status(404).json(err);
+    });
+});
+
 router.get("/api/transaction", (req, res) => {
   Transaction.find({}).sort({date: -1})
     .then(dbTransaction => {
